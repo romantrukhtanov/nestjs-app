@@ -1,8 +1,8 @@
 {
   "name": "nestjs-app",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "NestJS Test App",
+  "author": "Roman Trukhtanov",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
