@@ -5,19 +5,20 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { getMongoConfig } from './configs/mongo.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+
+import { RoomModule } from './room/room.module';
 import { ScheduleModule } from './schedule/schedule.module';
-import { RoomsModule } from './rooms/rooms.module';
 
 @Module({
 	imports: [
-		ConfigModule.forRoot(),
+		ConfigModule.forRoot({ isGlobal: true }),
 		MongooseModule.forRootAsync({
 			imports: [ConfigModule],
 			useFactory: getMongoConfig,
 			inject: [ConfigService],
 		}),
+		RoomModule,
 		ScheduleModule,
-		RoomsModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
