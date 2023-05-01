@@ -29,47 +29,35 @@ export class RoomController {
 
 	@Get(':id')
 	async get(@Param('id') id: string) {
-		try {
-			const room = await this.roomService.findById(id);
+		const room = await this.roomService.findById(id);
 
-			if (!room) {
-				this.sendNotFoundException();
-			}
-
-			return room;
-		} catch (error) {
+		if (!room) {
 			this.sendNotFoundException();
 		}
+
+		return room;
 	}
 
 	@Delete(':id')
 	async delete(@Param('id') id: string) {
-		try {
-			const deletedRoom = await this.roomService.deleteById(id);
+		const deletedRoom = await this.roomService.deleteById(id);
 
-			if (!deletedRoom) {
-				this.sendNotFoundException();
-			}
-
-			return deletedRoom;
-		} catch (error) {
+		if (!deletedRoom) {
 			this.sendNotFoundException();
 		}
+
+		return deletedRoom;
 	}
 
 	@Patch(':id')
 	async patch(@Param('id') id: string, @Body() dto: CreateRoomDto) {
-		try {
-			const updatedRoom = await this.roomService.updateById(id, dto);
+		const updatedRoom = await this.roomService.updateById(id, dto);
 
-			if (!updatedRoom) {
-				this.sendNotFoundException();
-			}
-
-			return updatedRoom;
-		} catch (error) {
+		if (!updatedRoom) {
 			this.sendNotFoundException();
 		}
+
+		return updatedRoom;
 	}
 
 	private sendNotFoundException() {

@@ -6,9 +6,10 @@ export type ScheduleDocument = HydratedDocument<Schedule>;
 
 @Schema()
 export class Schedule {
-	// TODO: Update date format and types
-	@Prop()
-	date: string; // DD.MM - EXP: 01.12
+	@Prop({
+		unique: true,
+	})
+	date: Date; // DD.MM - EXP: 01.12
 
 	@Prop({ type: Types.ObjectId, ref: Room.name })
 	room: Room;

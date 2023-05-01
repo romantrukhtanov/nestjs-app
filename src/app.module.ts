@@ -3,8 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { getMongoConfig } from './configs/mongo.config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 import { RoomModule } from './room/room.module';
 import { ScheduleModule } from './schedule/schedule.module';
@@ -20,7 +18,5 @@ import { ScheduleModule } from './schedule/schedule.module';
 		RoomModule,
 		ScheduleModule,
 	],
-	controllers: [AppController],
-	providers: [AppService],
 })
 export class AppModule {}

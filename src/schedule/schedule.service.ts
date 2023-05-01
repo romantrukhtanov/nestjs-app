@@ -11,8 +11,8 @@ export class ScheduleService {
 		@InjectModel(Schedule.name) private readonly scheduleModel: Model<ScheduleDocument>,
 	) {}
 
-	async create(dto: CreateScheduleDto): Promise<ScheduleDocument> {
-		return this.scheduleModel.create(dto);
+	async create(createScheduleDto: CreateScheduleDto): Promise<ScheduleDocument> {
+		return this.scheduleModel.create(createScheduleDto);
 	}
 
 	async findById(id: string): Promise<ScheduleDocument> {
@@ -23,15 +23,11 @@ export class ScheduleService {
 		return this.scheduleModel.find().exec();
 	}
 
-	async findByDateAndRoomId(date: string, roomId: string): Promise<ScheduleDocument> {
-		return this.scheduleModel.findOne({ date, room: roomId }).exec();
-	}
-
 	async deleteById(id: string): Promise<ScheduleDocument> {
 		return this.scheduleModel.findByIdAndDelete(id).exec();
 	}
 
-	async updateById(id: string, dto: CreateScheduleDto): Promise<ScheduleDocument> {
-		return this.scheduleModel.findByIdAndUpdate(id, dto, { new: true }).exec();
+	async updateById(id: string, createScheduleDto: CreateScheduleDto): Promise<ScheduleDocument> {
+		return this.scheduleModel.findByIdAndUpdate(id, createScheduleDto, { new: true }).exec();
 	}
 }
