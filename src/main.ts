@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
+
 import { AppModule } from './app.module';
-import { APP_GLOBAL_PREFIX, APP_PORT } from './configs/evn';
+import { APP_GLOBAL_PREFIX, APP_PORT } from './configs/env';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
 
 (async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
@@ -10,5 +12,6 @@ import { APP_GLOBAL_PREFIX, APP_PORT } from './configs/evn';
 		app.setGlobalPrefix(APP_GLOBAL_PREFIX);
 	}
 
+	app.useGlobalFilters(new HttpExceptionFilter());
 	await app.listen(APP_PORT || 3000);
 })();

@@ -3,16 +3,20 @@ import {
 	Controller,
 	Delete,
 	Get,
-	NotFoundException,
 	Param,
 	Patch,
 	Post,
+	UseFilters,
+	NotFoundException,
 } from '@nestjs/common';
+
 import { ScheduleService } from './schedule.service';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { SCHEDULE_NOT_FOUND_ERROR } from './schedule.constants';
+import { MongooseExceptionFilter } from '../filters/mongoose-exception.filter';
 
 @Controller('schedule')
+@UseFilters(MongooseExceptionFilter)
 export class ScheduleController {
 	constructor(private readonly scheduleService: ScheduleService) {}
 

@@ -3,17 +3,20 @@ import {
 	Controller,
 	Delete,
 	Get,
-	NotFoundException,
 	Param,
 	Patch,
 	Post,
+	UseFilters,
+	NotFoundException,
 } from '@nestjs/common';
 
 import { ROOM_NOT_FOUND_ERROR } from './room.constants';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { RoomService } from './room.service';
+import { MongooseExceptionFilter } from '../filters/mongoose-exception.filter';
 
 @Controller('room')
+@UseFilters(MongooseExceptionFilter)
 export class RoomController {
 	constructor(private readonly roomService: RoomService) {}
 
