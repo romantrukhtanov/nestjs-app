@@ -9,7 +9,7 @@ export class Schedule {
 	@Prop({
 		unique: true,
 	})
-	date: Date; // DD.MM - EXP: 01.12
+	date: Date;
 
 	@Prop({ type: Types.ObjectId, ref: Room.name })
 	room: Room;

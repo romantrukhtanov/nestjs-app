@@ -1,17 +1,21 @@
 import { NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
 
 import { AppModule } from './app.module';
-import { APP_GLOBAL_PREFIX, APP_PORT } from './configs/env';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 
 (async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
+	const configService = app.get(ConfigService);
 
-	if (typeof APP_GLOBAL_PREFIX === 'string') {
+	const appPort = configService.get('APP_PORT');
+	const appGlobalPrefix = configService.get('APP_GLOBAL_PREFIX');
+
+	if (typeof appGlobalPrefix === 'string') {
 		// Set global app prefix, for example: site.com/api/...
-		app.setGlobalPrefix(APP_GLOBAL_PREFIX);
+		app.setGlobalPrefix(appGlobalPrefix);
 	}
 
 	app.useGlobalFilters(new HttpExceptionFilter());
-	await app.listen(APP_PORT || 3000);
+	await app.listen(appPort || 3000);
 })();
