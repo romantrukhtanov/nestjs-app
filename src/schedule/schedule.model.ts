@@ -6,9 +6,7 @@ export type ScheduleDocument = HydratedDocument<Schedule>;
 
 @Schema()
 export class Schedule {
-	@Prop({
-		unique: true,
-	})
+	@Prop()
 	date: Date;
 
 	@Prop({ type: Types.ObjectId, ref: Room.name })
@@ -16,3 +14,5 @@ export class Schedule {
 }
 
 export const ScheduleSchema = SchemaFactory.createForClass(Schedule);
+
+ScheduleSchema.index({ date: 1, room: 1 }, { unique: true });
