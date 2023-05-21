@@ -6,7 +6,9 @@ import {
 	Param,
 	Patch,
 	Post,
+	UsePipes,
 	UseFilters,
+	ValidationPipe,
 	NotFoundException,
 } from '@nestjs/common';
 
@@ -20,6 +22,7 @@ import { MongooseExceptionFilter } from '../filters/mongoose-exception.filter';
 export class RoomController {
 	constructor(private readonly roomService: RoomService) {}
 
+	@UsePipes(new ValidationPipe())
 	@Post('create')
 	async create(@Body() dto: CreateRoomDto) {
 		return this.roomService.create(dto);
@@ -52,6 +55,7 @@ export class RoomController {
 		return deletedRoom;
 	}
 
+	@UsePipes(new ValidationPipe())
 	@Patch(':id')
 	async patch(@Param('id') id: string, @Body() dto: CreateRoomDto) {
 		const updatedRoom = await this.roomService.updateById(id, dto);

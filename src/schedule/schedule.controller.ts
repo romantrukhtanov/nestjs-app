@@ -6,7 +6,9 @@ import {
 	Param,
 	Patch,
 	Post,
+	UsePipes,
 	UseFilters,
+	ValidationPipe,
 	NotFoundException,
 } from '@nestjs/common';
 
@@ -20,6 +22,7 @@ import { MongooseExceptionFilter } from '../filters/mongoose-exception.filter';
 export class ScheduleController {
 	constructor(private readonly scheduleService: ScheduleService) {}
 
+	@UsePipes(new ValidationPipe())
 	@Post('create')
 	async create(@Body() createScheduleDto: CreateScheduleDto) {
 		return this.scheduleService.create(createScheduleDto);
@@ -43,7 +46,7 @@ export class ScheduleController {
 
 	@Delete(':id')
 	async delete(@Param('id') id: string) {
-		const deletedSchedule = this.scheduleService.deleteById(id);
+		const deletedSchedule = await this.scheduleService.deleteById(id);
 
 		if (!deletedSchedule) {
 			this.sendNotFoundException();
@@ -52,6 +55,7 @@ export class ScheduleController {
 		return deletedSchedule;
 	}
 
+	@UsePipes(new ValidationPipe())
 	@Patch(':id')
 	async patch(@Param('id') id: string, @Body() dto: CreateScheduleDto) {
 		const updatedSchedule = await this.scheduleService.updateById(id, dto);
